@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Volo's Cafe — كافيه على النيل</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --espresso:#211A14;
+    --espresso-2:#2C2219;
+    --ivory:#EFE7D6;
+    --ivory-dim:#E4D9C1;
+    --brass:#B8874F;
+    --brass-light:#D4AC72;
+    --terracotta:#9C4A32;
+    --olive:#5C6B4B;
+    --line:rgba(239,231,214,0.14);
+    --line-dark:rgba(33,26,20,0.12);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Tajawal',sans-serif;
+    background:var(--ivory);
+    color:var(--espresso);
+    line-height:1.75;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{font-family:'Amiri',serif; font-weight:700;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  ul{list-style:none;}
+  .container{max-width:1240px; margin:0 auto; padding:0 clamp(20px,4.5vw,56px);}
+  ::selection{background:var(--brass); color:var(--espresso);}
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible{
+    outline:2px solid var(--brass); outline-offset:3px;
+  }
+
+  /* ===== NAV ===== */
+  header{
+    position:fixed; inset:0 0 auto 0; z-index:200;
+    background:rgba(33,26,20,0.92); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px clamp(20px,4.5vw,56px); max-width:1240px; margin:0 auto;
+  }
+  .logo{
+    font-family:'Amiri',serif; font-size:1.5rem; color:var(--ivory);
+    letter-spacing:.5px;
+  }
+  .logo b{color:var(--brass-light); font-weight:700;}
+  nav ul{display:flex; gap:clamp(20px,3vw,42px); font-size:.92rem; font-weight:500; color:rgba(239,231,214,0.82);}
+  nav a{position:relative; padding-bottom:4px; transition:color .2s;}
+  nav a:hover{color:var(--brass-light);}
+  nav a::after{content:''; position:absolute; bottom:0; right:0; width:0; height:1px; background:var(--brass-light); transition:width .3s ease;}
+  nav a:hover::after{width:100%;}
+  .nav-cta{
+    border:1px solid var(--brass); color:var(--brass-light) !important;
+    padding:10px 26px; border-radius:2px; font-weight:700; font-size:.85rem;
+    letter-spacing:.5px; transition:.25s;
+  }
+  .nav-cta:hover{background:var(--brass); color:var(--espresso) !important;}
+  .burger{display:none; font-size:1.5rem; cursor:pointer; color:var(--ivory);}
+  @media(max-width:900px){
+    nav ul{
+      position:fixed; inset:68px 0 0 0; background:var(--espresso);
+      flex-direction:column; align-items:center; justify-content:center;
+      gap:34px; font-size:1.15rem; transform:translateY(-120%); transition:.35s;
+    }
+    nav ul.open{transform:translateY(0);}
+    .burger{display:block;}
+    .nav-cta{display:none;}
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    min-height:100vh; display:flex; align-items:flex-end; position:relative; overflow:hidden;
+    padding:150px 0 100px;
+    background:
+      radial-gradient(ellipse at 75% 0%, rgba(184,135,79,0.16), transparent 55%),
+      linear-gradient(175deg, var(--espresso) 0%, var(--espresso-2) 100%);
+    color:var(--ivory);
+  }
+  .hero::before{
+    content:''; position:absolute; inset:0;
+    background-image: linear-gradient(rgba(239,231,214,0.05) 1px, transparent 1px);
+    background-size:100% 90px;
+    pointer-events:none; opacity:.5;
+  }
+  .hero-inner{position:relative; z-index:2; width:100%;}
+  .hero-eyebrow{
+    display:flex; align-items:center; gap:14px; margin-bottom:28px; color:var(--brass-light);
+    font-size:.92rem; font-weight:700; letter-spacing:.3px;
+  }
+  .hero-eyebrow::before{content:''; width:36px; height:1px; background:var(--brass-light);}
+  .hero-title-row{display:grid; grid-template-columns:1.4fr .6fr; gap:40px; align-items:flex-end;}
+  .hero h1{
+    font-size:clamp(2.6rem,7vw,5.4rem); line-height:1.15; color:var(--ivory);
+  }
+  .hero h1 i{font-style:normal; color:var(--brass-light);}
+  .hero-side{border-right:1px solid var(--line); padding-right:28px;}
+  .hero-side p{font-size:1.02rem; color:rgba(239,231,214,0.72); margin-bottom:26px;}
+  .hero-actions{display:flex; gap:16px; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; gap:10px; padding:15px 30px;
+    font-weight:700; font-size:.92rem; cursor:pointer; border:none;
+    letter-spacing:.3px; transition:.25s; border-radius:2px;
+  }
+  .btn-solid{background:var(--brass-light); color:var(--espresso);}
+  .btn-solid:hover{background:var(--ivory);}
+  .btn-line{border:1px solid rgba(239,231,214,0.4); color:var(--ivory);}
+  .btn-line:hover{border-color:var(--brass-light); color:var(--brass-light);}
+
+  .hero-meta{
+    display:flex; gap:clamp(30px,5vw,70px); margin-top:70px; padding-top:34px;
+    border-top:1px solid var(--line); flex-wrap:wrap;
+  }
+  .meta-item b{display:block; font-family:'Amiri',serif; font-size:2rem; color:var(--brass-light);}
+  .meta-item span{font-size:.85rem; color:rgba(239,231,214,0.6);}
+
+  @media(max-width:860px){
+    .hero-title-row{grid-template-columns:1fr;}
+    .hero-side{border-right:none; padding-right:0; border-top:1px solid var(--line); padding-top:24px; margin-top:24px;}
+  }
+
+  /* ===== SECTION generic ===== */
+  section{padding:clamp(80px,11vw,150px) 0;}
+  .section-label{
+    display:flex; align-items:center; gap:14px; margin-bottom:20px;
+    font-size:.88rem; font-weight:700; color:var(--terracotta); letter-spacing:.3px;
+  }
+  .section-label::before{content:''; width:30px; height:1px; background:var(--terracotta);}
+  .section-head{max-width:640px; margin-bottom:clamp(40px,6vw,72px);}
+  .section-head h2{font-size:clamp(2rem,4.5vw,3rem); line-height:1.25; color:var(--espresso);}
+  .section-head p{margin-top:16px; font-size:1.05rem; color:#4a4136; max-width:540px;}
+  .head-row{display:flex; justify-content:space-between; align-items:flex-end; gap:30px; flex-wrap:wrap;}
+
+  /* ===== ABOUT ===== */
+  .about{background:var(--ivory);}
+  .about-grid{display:grid; grid-template-columns:.85fr 1.15fr; gap:clamp(40px,6vw,90px);}
+  .about-frame{
+    border:1px solid var(--line-dark); padding:34px; position:relative; min-height:400px;
+    display:flex; flex-direction:column; justify-content:space-between;
+  }
+  .about-frame::before{content:''; position:absolute; top:14px; left:14px; right:-14px; bottom:-14px; border:1px solid var(--brass); z-index:-1;}
+  .about-frame .quote{font-family:'Amiri',serif; font-size:1.5rem; line-height:1.6; color:var(--espresso);}
+  .about-frame .who{margin-top:20px; font-size:.88rem; color:var(--terracotta); font-weight:700;}
+  .about-copy p{margin-bottom:18px; font-size:1.05rem; color:#3a332a;}
+  .stat-line{display:flex; gap:50px; margin-top:40px; padding-top:30px; border-top:1px solid var(--line-dark); flex-wrap:wrap;}
+  .stat-line b{display:block; font-family:'Amiri',serif; font-size:2rem; color:var(--terracotta);}
+  .stat-line span{font-size:.85rem; color:#6b6152;}
+  @media(max-width:900px){.about-grid{grid-template-columns:1fr;}}
+
+  /* ===== MENU ===== */
+  .menu{background:var(--espresso); color:var(--ivory);}
+  .menu .section-head h2{color:var(--ivory);}
+  .menu .section-head p{color:rgba(239,231,214,0.65);}
+  .menu-tabs{display:flex; gap:8px; margin-bottom:10px;}
+  .tab-btn{
+    background:transparent; border:none; color:rgba(239,231,214,0.55);
+    font-family:'Tajawal'; font-size:.95rem; font-weight:700; padding:10px 4px;
+    cursor:pointer; position:relative; margin-left:28px;
+  }
+  .tab-btn::after{content:''; position:absolute; bottom:0; right:0; width:0; height:2px; background:var(--brass-light); transition:width .25s;}
+  .tab-btn.active{color:var(--brass-light);}
+  .tab-btn.active::after{width:100%;}
+  .menu-panel{display:none; grid-template-columns:1fr 1fr; gap:0 60px; margin-top:34px; border-top:1px solid var(--line);}
+  .menu-panel.active{display:grid;}
+  .menu-item{display:flex; justify-content:space-between; align-items:baseline; padding:22px 0; border-bottom:1px solid var(--line);}
+  .menu-item .name{font-weight:700; font-size:1.06rem; color:var(--ivory);}
+  .menu-item .desc{display:block; font-size:.85rem; color:rgba(239,231,214,0.5); font-weight:400; margin-top:4px;}
+  .menu-item .price{font-family:'Amiri',serif; font-size:1.3rem; color:var(--brass-light); white-space:nowrap; padding-right:16px;}
+  @media(max-width:760px){.menu-panel.active{grid-template-columns:1fr;} .tab-btn{margin-left:16px; font-size:.86rem;}}
+
+  /* ===== BOOKING ===== */
+  .booking{background:var(--ivory);}
+  .booking-grid{display:grid; grid-template-columns:.85fr 1.15fr; gap:clamp(40px,6vw,80px);}
+  .contact-line{display:flex; gap:16px; align-items:flex-start; margin-bottom:24px;}
+  .contact-line .ic{
+    width:2px; height:2px; margin-top:8px; background:var(--terracotta); flex-shrink:0;
+  }
+  .contact-line h4{font-size:.95rem; color:var(--espresso); margin-bottom:4px;}
+  .contact-line p{font-size:.95rem; color:#5c5344;}
+  form.book-form{background:var(--espresso); padding:clamp(30px,4.5vw,48px); color:var(--ivory);}
+  .book-form h3{font-family:'Amiri',serif; font-size:1.6rem; margin-bottom:6px; color:var(--ivory);}
+  .book-form>p{color:rgba(239,231,214,0.55); font-size:.9rem; margin-bottom:26px;}
+  .field{display:flex; flex-direction:column; gap:8px; margin-bottom:18px;}
+  .field label{font-size:.82rem; font-weight:700; color:var(--brass-light); letter-spacing:.3px;}
+  .field input,.field select{
+    padding:13px 4px; border:none; border-bottom:1px solid rgba(239,231,214,0.3);
+    background:transparent; font-family:'Tajawal'; font-size:.98rem; color:var(--ivory);
+  }
+  .field select option{color:#000;}
+  .field input::placeholder{color:rgba(239,231,214,0.35);}
+  .field input:focus,.field select:focus{outline:none; border-color:var(--brass-light);}
+  .two-col{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  .submit-wa{
+    width:100%; margin-top:8px; background:var(--brass-light); color:var(--espresso);
+    border:none; padding:16px; font-weight:700; font-size:1rem; letter-spacing:.3px;
+    display:flex; align-items:center; justify-content:center; gap:10px; cursor:pointer; transition:.2s;
+  }
+  .submit-wa:hover{background:var(--ivory);}
+  .hint{font-size:.78rem; color:rgba(239,231,214,0.4); text-align:center; margin-top:14px;}
+  @media(max-width:900px){.booking-grid{grid-template-columns:1fr;} .two-col{grid-template-columns:1fr;}}
+
+  /* ===== VIBE ===== */
+  .vibe{background:var(--ivory);}
+  .vibe-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line-dark); border:1px solid var(--line-dark);}
+  .vibe-card{background:var(--ivory); padding:44px 34px; min-height:240px; display:flex; flex-direction:column; justify-content:space-between;}
+  .vibe-card .n{font-family:'Amiri',serif; font-size:1.1rem; color:var(--terracotta);}
+  .vibe-card h4{font-family:'Amiri',serif; font-size:1.4rem; margin-top:24px; color:var(--espresso);}
+  .vibe-card p{font-size:.92rem; color:#5c5344; margin-top:10px;}
+  @media(max-width:860px){.vibe-grid{grid-template-columns:1fr;}}
+
+  /* ===== REVIEWS ===== */
+  .reviews{background:var(--espresso); color:var(--ivory);}
+  .reviews .section-head h2{color:var(--ivory);}
+  .reviews .section-head p{color:rgba(239,231,214,0.6);}
+  .review-scroll{display:flex; gap:1px; background:var(--line); overflow-x:auto; border:1px solid var(--line);}
+  .review-card{min-width:300px; max-width:320px; background:var(--espresso); padding:30px; flex-shrink:0;}
+  .review-card .stars{color:var(--brass-light); margin-bottom:16px; letter-spacing:3px; font-size:.9rem;}
+  .review-card p{font-size:.95rem; color:rgba(239,231,214,0.8); margin-bottom:20px;}
+  .review-card .who{font-weight:700; font-size:.85rem; color:var(--brass-light);}
+
+  /* ===== LOCATION ===== */
+  .location{background:var(--ivory);}
+  .loc-grid{display:grid; grid-template-columns:.85fr 1.15fr; gap:clamp(40px,6vw,60px);}
+  .loc-info{display:flex; flex-direction:column; gap:24px;}
+  .info-row{border-right:2px solid var(--terracotta); padding-right:20px;}
+  .info-row h4{font-family:'Amiri',serif; font-size:1.1rem; margin-bottom:5px; color:var(--espresso);}
+  .info-row p{font-size:.94rem; color:#5c5344;}
+  .map-frame{border:1px solid var(--line-dark); min-height:340px; filter:grayscale(.3) sepia(.15) contrast(1.05);}
+  .map-frame iframe{width:100%; height:100%; min-height:340px; border:0;}
+  @media(max-width:900px){.loc-grid{grid-template-columns:1fr;}}
+
+  /* ===== FOOTER ===== */
+  footer{background:var(--espresso); color:rgba(239,231,214,0.7); padding:70px 0 30px; border-top:1px solid var(--line);}
+  .footer-grid{display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:40px; margin-bottom:50px;}
+  footer .logo{margin-bottom:14px; display:block;}
+  footer p{font-size:.9rem; color:rgba(239,231,214,0.55); max-width:300px;}
+  footer h5{font-family:'Amiri',serif; font-size:1.05rem; margin-bottom:16px; color:var(--brass-light);}
+  footer ul{display:flex; flex-direction:column; gap:11px;}
+  footer a{font-size:.9rem; color:rgba(239,231,214,0.65);}
+  footer a:hover{color:var(--brass-light);}
+  .footer-bottom{border-top:1px solid var(--line); padding-top:24px; text-align:center; font-size:.8rem; color:rgba(239,231,214,0.4);}
+  @media(max-width:760px){.footer-grid{grid-template-columns:1fr;}}
+
+  .float-wa{
+    position:fixed; bottom:26px; left:26px; z-index:300; width:54px; height:54px;
+    background:var(--brass-light); color:var(--espresso); display:flex; align-items:center;
+    justify-content:center; font-size:1.4rem; box-shadow:0 12px 26px -8px rgba(0,0,0,0.5);
+    border-radius:2px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-wrap">
+    <div class="logo">Volo's <b>Cafe</b></div>
+    <nav><ul id="navList">
+      <li><a href="#about" onclick="closeNav()">حكايتنا</a></li>
+      <li><a href="#menu" onclick="closeNav()">المنيو</a></li>
+      <li><a href="#booking" onclick="closeNav()">احجز طاولة</a></li>
+      <li><a href="#vibe" onclick="closeNav()">الأجواء</a></li>
+      <li><a href="#location" onclick="closeNav()">الموقع</a></li>
+    </ul></nav>
+    <a href="#booking" class="nav-cta">احجز الآن</a>
+    <div class="burger" onclick="toggleNav()">☰</div>
+  </div>
+</header>
+
+<section class="hero" id="home">
+  <div class="container hero-inner">
+    <div class="hero-eyebrow">West Bank — إطلالة على النيل</div>
+    <div class="hero-title-row">
+      <h1>قهوتك المفضلة، على أجمل <i>ضفة في القاهرة</i></h1>
+      <div class="hero-side">
+        <p>فولوز كافيه مكانك لما تيجي تستريح، تتقابل مع صحابك، أو تقعد لوحدك تشرب لاتيه الفستق المشهور وانت شايف النيل قدامك.</p>
+        <div class="hero-actions">
+          <a href="#booking" class="btn btn-solid">احجز طاولتك</a>
+          <a href="#menu" class="btn btn-line">شوف المنيو</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-meta">
+      <div class="meta-item"><b>4.7</b><span>تقييم أكتر من 5000 زائر</span></div>
+      <div class="meta-item"><b>9–3</b><span>مفتوح يوميًا صباحًا وحتى الفجر</span></div>
+      <div class="meta-item"><b>02</b><span>فروع على النيل</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="container about-grid">
+    <div class="about-frame">
+      <div class="quote">"مش بس كافيه.. ده المكان اللي بتنسى فيه زحمة القاهرة لساعتين"</div>
+      <div class="who">— من تقييمات زوارنا على جوجل</div>
+    </div>
+    <div class="about-copy">
+      <div class="section-label">حكايتنا</div>
+      <h2 style="font-size:2rem; margin-bottom:20px;">قاعدين على ضفة النيل الغربية، جوه قصر علي</h2>
+      <p>فولوز كافيه اتبنى عشان يديك تجربة مختلفة: قهوة مختصة، أكل بسيط ومظبوط، وإطلالة نيل مفيش زيها في المنطقة.</p>
+      <p>الفريق بتاعنا مدرب يخدمك بسرعة وبأسلوب راقي، وكل التفاصيل من الإضاءة للموسيقى متحسوبة عشان تحس إنك في مكان مريح فعلاً.</p>
+      <div class="stat-line">
+        <div><b>100%</b><span>إطلالة على النيل</span></div>
+        <div><b>18h</b><span>ساعات فتح يوميًا</span></div>
+        <div><b>4.7★</b><span>متوسط التقييم</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="menu" id="menu">
+  <div class="container">
+    <div class="head-row section-head">
+      <div>
+        <div class="section-label">المنيو</div>
+        <h2>مختارات هتحبها</h2>
+      </div>
+      <div class="menu-tabs">
+        <button class="tab-btn active" onclick="showTab('drinks',this)">مشروبات</button>
+        <button class="tab-btn" onclick="showTab('food',this)">أكل</button>
+        <button class="tab-btn" onclick="showTab('sweets',this)">حلويات</button>
+      </div>
+    </div>
+    <div class="menu-panel active" id="drinks">
+      <div class="menu-item"><span><span class="name">لاتيه الفستق</span><span class="desc">توقيعنا الخاص، بيتطلب دايمًا</span></span><span class="price">95</span></div>
+      <div class="menu-item"><span><span class="name">عصير بطيخ طازج</span><span class="desc">منعش ومثالي في الصيف</span></span><span class="price">65</span></div>
+      <div class="menu-item"><span><span class="name">إسبريسو مضاعف</span><span class="desc">بن مختص محمّص بعناية</span></span><span class="price">55</span></div>
+      <div class="menu-item"><span><span class="name">شاي كرك</span><span class="desc">وصفة تقليدية بالحليب والهيل</span></span><span class="price">45</span></div>
+      <div class="menu-item"><span><span class="name">موهيتو فراولة</span><span class="desc">نعناع طازة وفراولة موسمية</span></span><span class="price">70</span></div>
+      <div class="menu-item"><span><span class="name">كولد برو</span><span class="desc">تخمير بارد 18 ساعة</span></span><span class="price">75</span></div>
+    </div>
+    <div class="menu-panel" id="food">
+      <div class="menu-item"><span><span class="name">فطار بلدي كامل</span><span class="desc">جبنة، فول، بيض، وخبز طازة</span></span><span class="price">120</span></div>
+      <div class="menu-item"><span><span class="name">شكشوكة</span><span class="desc">طماطم طازة وبيض وتوابل بيتنا</span></span><span class="price">110</span></div>
+      <div class="menu-item"><span><span class="name">ساندوتش هالوم مشوي</span><span class="desc">مع خضار مشوية وصوص خاص</span></span><span class="price">95</span></div>
+      <div class="menu-item"><span><span class="name">سلطة سيزر بالدجاج</span><span class="desc">صدور دجاج مشوية وجبنة بارميزان</span></span><span class="price">135</span></div>
+    </div>
+    <div class="menu-panel" id="sweets">
+      <div class="menu-item"><span><span class="name">تشيز كيك فستق</span><span class="desc">توليفة الفستق الشهيرة عندنا</span></span><span class="price">85</span></div>
+      <div class="menu-item"><span><span class="name">كنافة بالقشطة</span><span class="desc">تقدم سخنة مع آيس كريم</span></span><span class="price">90</span></div>
+      <div class="menu-item"><span><span class="name">براوني شوكولاتة</span><span class="desc">يقدم دافي مع صوص الشوكولاتة</span></span><span class="price">70</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="booking" id="booking">
+  <div class="container booking-grid">
+    <div>
+      <div class="section-label">احجز طاولتك</div>
+      <h2 style="font-size:2rem; margin-bottom:20px;">ضمّن مكانك على النيل</h2>
+      <p style="font-size:1rem; color:#5c5344; margin-bottom:34px;">املا بياناتك واختار الميعاد المناسب، وهنأكد الحجز معاك على الواتساب في دقايق.</p>
+      <div class="contact-line"><span class="ic"></span><div><h4>الموقع</h4><p>West Bank، عبد العزيز آل سعود، المنيل الغربي، القاهرة</p></div></div>
+      <div class="contact-line"><span class="ic"></span><div><h4>المواعيد</h4><p>يوميًا من 9 صباحًا حتى 3 فجرًا</p></div></div>
+      <div class="contact-line"><span class="ic"></span><div><h4>التليفون</h4><p dir="ltr">+20 10 7000 4554</p></div></div>
+    </div>
+    <form class="book-form" id="bookForm" onsubmit="sendBooking(event)">
+      <h3>تفاصيل الحجز</h3>
+      <p>هيتم تحويلك لواتساب فولوز كافيه برسالة جاهزة</p>
+      <div class="field"><label>الاسم</label><input type="text" id="bName" placeholder="اسمك بالكامل" required></div>
+      <div class="two-col">
+        <div class="field"><label>عدد الأفراد</label><select id="bGuests"><option>شخصين</option><option>3 أشخاص</option><option>4 أشخاص</option><option>5 أشخاص أو أكتر</option></select></div>
+        <div class="field"><label>رقم الموبايل</label><input type="tel" id="bPhone" placeholder="01xxxxxxxxx" required></div>
+      </div>
+      <div class="two-col">
+        <div class="field"><label>التاريخ</label><input type="date" id="bDate" required></div>
+        <div class="field"><label>الميعاد</label><input type="time" id="bTime" required></div>
+      </div>
+      <div class="field"><label>ملاحظات (اختياري)</label><input type="text" id="bNotes" placeholder="مثلاً: طاولة قريبة من النيل"></div>
+      <button type="submit" class="submit-wa">إرسال الحجز عبر واتساب</button>
+      <p class="hint">لن نشارك بياناتك مع أي طرف آخر</p>
+    </form>
+  </div>
+</section>
+
+<section class="vibe" id="vibe">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">الأجواء</div>
+      <h2>إيه اللي هتحسه هنا</h2>
+    </div>
+    <div class="vibe-grid">
+      <div class="vibe-card"><span class="n">01</span><h4>غروب على النيل</h4><p>أفضل وقت للزيارة قبل المغرب بساعة، الإضاءة والمنظر مش هتتنسى.</p></div>
+      <div class="vibe-card"><span class="n">02</span><h4>ركن هادي للشغل</h4><p>واي فاي سريع وطاولات مريحة لو محتاج تنجز شغلك بره البيت.</p></div>
+      <div class="vibe-card"><span class="n">03</span><h4>سهرات مع الأصحاب</h4><p>موسيقى هادية بالليل ومساحة كبيرة كافية لجروبات لحد 6 أفراد.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="reviews">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">آراء الزوار</div>
+      <h2>اللي بيقولوه عننا</h2>
+    </div>
+    <div class="review-scroll">
+      <div class="review-card"><div class="stars">★★★★★</div><p>لاتيه الفستق كان جامد جدًا، والمكان بإطلالة على النيل والفريق متعاون قوي.</p><div class="who">زائر — تقييم جوجل</div></div>
+      <div class="review-card"><div class="stars">★★★★★</div><p>أول ما خلصنا زيارة قصر علي كان الجو حر جدًا، لقينا فولوز كافيه ومكان رائع نرتاح فيه.</p><div class="who">زائر — تقييم جوجل</div></div>
+      <div class="review-card"><div class="stars">★★★★☆</div><p>الجلسة جميلة جدًا والإطلالة تحفة، والسعر مناسب.</p><div class="who">زائر — تقييم جوجل</div></div>
+      <div class="review-card"><div class="stars">★★★★★</div><p>مكان جميل وبرجع له باستمرار، الخدمة ممتازة والفريق لطيف جدًا.</p><div class="who">زائر — تقييم جوجل</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="location" id="location">
+  <div class="container loc-grid">
+    <div class="loc-info">
+      <div class="section-label">موقعنا</div>
+      <h2 style="font-size:1.8rem; margin-bottom:10px;">هتلاقينا هنا</h2>
+      <div class="info-row"><h4>العنوان</h4><p>West Bank، عبد العزيز آل سعود، المنيل الغربي، مصر القديمة، القاهرة</p></div>
+      <div class="info-row"><h4>مواعيد العمل</h4><p>يوميًا من 9:00 صباحًا حتى 3:00 فجرًا</p></div>
+      <div class="info-row"><h4>للتواصل والحجز</h4><p dir="ltr">+20 10 7000 4554</p></div>
+      <a href="https://maps.app.goo.gl/c782QwcTSqbwFjYi6" target="_blank" class="btn btn-solid" style="width:fit-content; color:var(--espresso); margin-top:10px;">افتح في خرائط جوجل</a>
+    </div>
+    <div class="map-frame"><iframe src="https://www.google.com/maps?q=30.0264832,31.2231111&hl=ar&z=16&output=embed" allowfullscreen="" loading="lazy"></iframe></div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div><div class="logo">Volo's <b>Cafe</b></div><p>كافيه على ضفة النيل الغربية، بيقدملك قهوة وأكل بسيط في أجمل إطلالة بالقاهرة.</p></div>
+      <div><h5>روابط سريعة</h5><ul><li><a href="#about">حكايتنا</a></li><li><a href="#menu">المنيو</a></li><li><a href="#booking">احجز طاولة</a></li><li><a href="#location">الموقع</a></li></ul></div>
+      <div><h5>تواصل معنا</h5><ul><li dir="ltr">+20 10 7000 4554</li><li>West Bank, Al Manyal Al Gharbi, Cairo</li></ul></div>
+    </div>
+    <div class="footer-bottom">© 2026 Volo's Cafe. جميع الحقوق محفوظة.</div>
+  </div>
+</footer>
+
+<a class="float-wa" href="#" id="floatWa" target="_blank" title="تواصل عبر واتساب">💬</a>
+
+<script>
+  const WA_NUMBER = "201070004554";
+  function toggleNav(){document.getElementById('navList').classList.toggle('open');}
+  function closeNav(){document.getElementById('navList').classList.remove('open');}
+  function showTab(id, btn){
+    document.querySelectorAll('.menu-panel').forEach(p=>p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+  }
+  function sendBooking(e){
+    e.preventDefault();
+    const name=document.getElementById('bName').value;
+    const guests=document.getElementById('bGuests').value;
+    const phone=document.getElementById('bPhone').value;
+    const date=document.getElementById('bDate').value;
+    const time=document.getElementById('bTime').value;
+    const notes=document.getElementById('bNotes').value;
+    let msg=`أهلاً، أنا ${name} وعايز أحجز طاولة في Volo's Cafe.%0A`;
+    msg+=`عدد الأفراد: ${guests}%0A`;
+    msg+=`التاريخ: ${date}%0A`;
+    msg+=`الميعاد: ${time}%0A`;
+    msg+=`رقم التواصل: ${phone}%0A`;
+    if(notes){msg+=`ملاحظات: ${notes}%0A`;}
+    window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`,'_blank');
+  }
+  document.getElementById('floatWa').href=`https://wa.me/${WA_NUMBER}?text=أهلاً، عايز أعرف تفاصيل عن Volo's Cafe`;
+</script>
+</body>
+</html>
