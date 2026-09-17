@@ -67,17 +67,36 @@
     letter-spacing:.5px; transition:.25s;
   }
   .nav-cta:hover{background:var(--brass); color:var(--espresso) !important;}
-  .burger{display:none; font-size:1.5rem; cursor:pointer; color:var(--ivory);}
-  @media(max-width:900px){
+  .burger{
+    display:none; font-size:1.6rem; line-height:1; cursor:pointer; color:var(--ivory);
+    background:none; border:none; padding:6px 4px; z-index:260; position:relative;
+  }
+  @media(max-width:1024px){
+    .nav-wrap{padding-top:16px; padding-bottom:16px;}
     nav ul{
-      position:fixed; inset:68px 0 0 0; background:var(--espresso);
-      flex-direction:column; align-items:center; justify-content:center;
-      gap:34px; font-size:1.15rem; transform:translateY(-120%); transition:.35s;
+      position:fixed; top:0; right:0; left:0; bottom:0; z-index:250;
+      background:var(--espresso);
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      gap:30px; font-size:1.25rem;
+      transform:translateY(-100%); opacity:0;
+      transition:transform .35s ease, opacity .3s ease;
+      visibility:hidden;
     }
-    nav ul.open{transform:translateY(0);}
+    nav ul.open{transform:translateY(0); opacity:1; visibility:visible;}
+    nav ul li{opacity:0; transform:translateY(10px); transition:opacity .35s ease, transform .35s ease;}
+    nav ul.open li{opacity:1; transform:translateY(0);}
+    nav ul.open li:nth-child(1){transition-delay:.08s;}
+    nav ul.open li:nth-child(2){transition-delay:.13s;}
+    nav ul.open li:nth-child(3){transition-delay:.18s;}
+    nav ul.open li:nth-child(4){transition-delay:.23s;}
+    nav ul.open li:nth-child(5){transition-delay:.28s;}
     .burger{display:block;}
     .nav-cta{display:none;}
   }
+  @media(min-width:901px) and (max-width:1024px){
+    .logo{font-size:1.3rem;}
+  }
+  body.nav-open{overflow:hidden;}
 
   /* ===== HERO ===== */
   .hero{
@@ -273,7 +292,7 @@
       <li><a href="#location" onclick="closeNav()">الموقع</a></li>
     </ul></nav>
     <a href="#booking" class="nav-cta">احجز الآن</a>
-    <div class="burger" onclick="toggleNav()">☰</div>
+    <button class="burger" id="burgerBtn" onclick="toggleNav()" aria-label="فتح القائمة" aria-expanded="false">☰</button>
   </div>
 </header>
 
@@ -440,8 +459,20 @@
 
 <script>
   const WA_NUMBER = "201070004554";
-  function toggleNav(){document.getElementById('navList').classList.toggle('open');}
-  function closeNav(){document.getElementById('navList').classList.remove('open');}
+  function toggleNav(){
+    const nav = document.getElementById('navList');
+    const btn = document.getElementById('burgerBtn');
+    const isOpen = nav.classList.toggle('open');
+    document.body.classList.toggle('nav-open', isOpen);
+    btn.textContent = isOpen ? '✕' : '☰';
+    btn.setAttribute('aria-expanded', isOpen);
+  }
+  function closeNav(){
+    document.getElementById('navList').classList.remove('open');
+    document.getElementById('burgerBtn').textContent = '☰';
+    document.getElementById('burgerBtn').setAttribute('aria-expanded','false');
+    document.body.classList.remove('nav-open');
+  }
   function showTab(id, btn){
     document.querySelectorAll('.menu-panel').forEach(p=>p.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
